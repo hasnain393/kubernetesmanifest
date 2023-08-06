@@ -15,12 +15,20 @@ node {
                         //sh "git config user.email hasnains312@gmail.com"
                         //sh "git config user.name hasnain393"
                         //sh "git switch master"
-                        bat "cat deployment.yaml"
-                        bat "sed -i 's+hasnains312/myapp.*+hasnains312/myapp:${DOCKERTAG}+g' deployment.yaml"
-                        bat "cat deployment.yaml"
+                        //sh "cat deployment.yaml"
+                        //sh "sed -i 's+hasnains312/myapp.*+hasnains312/myapp:${DOCKERTAG}+g' deployment.yaml"
+                        //sh "cat deployment.yaml"
+                        //sh "git add ."
+                        //sh "git commit -m 'Done by Jenkins Job changemanifest: ${env.BUILD_NUMBER}'"
+                        //sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/kubernetesmanifest.git HEAD:main"
+
+                        bat "type deployment.yaml"
+                        bat "powershell -Command \"(Get-Content deployment.yaml) -replace 'hasnains312/myapp.*', 'hasnains312/myapp:${DOCKERTAG}' | Set-Content deployment.yaml\""
+                        bat "type deployment.yaml"
                         bat "git add ."
-                        bat "git commit -m 'Done by Jenkins Job changemanifest: ${env.BUILD_NUMBER}'"
+                        bat "git commit -m \"Done by Jenkins Job changemanifest: ${env.BUILD_NUMBER}\""
                         bat "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/kubernetesmanifest.git HEAD:main"
+        }
       }
     }
   }
