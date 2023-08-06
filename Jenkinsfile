@@ -1,11 +1,7 @@
 
 node {
     def app
-       agent any
- environment {
-        GIT_USERNAME = credentials('github').username
-        GIT_PASSWORD = credentials('github').password
-    }
+   
     stage('Clone repository') {
         checkout scm
     }
