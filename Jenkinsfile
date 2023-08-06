@@ -8,7 +8,7 @@ node {
     }
 
     stage('Update GIT') {
-            script {
+            steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                         //def encodedPassword = URLEncoder.encode("$GIT_PASSWORD",'UTF-8')
@@ -22,6 +22,10 @@ node {
                         //sh "git commit -m 'Done by Jenkins Job changemanifest: ${env.BUILD_NUMBER}'"
                         //sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/kubernetesmanifest.git HEAD:main"
 
+                        def encodedPassword = URLEncoder.encode("$GIT_PASSWORD",'UTF-8')
+                        bat 'git config user.email hasnains312@gmail.com'
+                        bat 'git config user.name hasnain393'
+                        bat 'git switch master'
                         bat "type deployment.yaml"
                         bat "powershell -Command \"(Get-Content deployment.yaml) -replace 'hasnains312/myapp.*', 'hasnains312/myapp:${DOCKERTAG}' | Set-Content deployment.yaml\""
                         bat "type deployment.yaml"
