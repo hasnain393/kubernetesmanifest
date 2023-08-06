@@ -20,7 +20,7 @@ node {
 
                 bat 'git add .'
                 bat "git commit -m \"Done by Jenkins Job changemanifest: ${env.BUILD_NUMBER}\""
-                bat "git push  https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/kubernetesmanifest.git HEAD:main"
+                bat "git push  https://${env.GIT_USERNAME}:${env.GIT_PASSWORD}@github.com/${env.GIT_USERNAME}/kubernetesmanifest.git HEAD:main"
             }
         }
     }
